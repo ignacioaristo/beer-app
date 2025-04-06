@@ -1,10 +1,27 @@
-import React from "react";
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Switch,
+  Route,
+} from "react-router-dom";
+import { HomePage } from "./screens/HomePage/HomePage";
+import { MainLayout } from "./screens/Layouts/MainLayout/MainLayout";
 
 function App() {
   return (
-    <div>
-      <p>Beer-App</p>
-    </div>
+    <MainLayout>
+      <Router>
+        <Switch>
+          <Route path="/">
+            <HomePage />
+          </Route>
+
+          <Route path="*">
+            <Redirect to="/" />
+          </Route>
+        </Switch>
+      </Router>
+    </MainLayout>
   );
 }
 
