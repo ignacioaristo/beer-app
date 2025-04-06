@@ -14,6 +14,7 @@ export const MainLayout = ({ children }: Props) => {
       w="50%"
       h="100vh"
       border={"1px solid black"}
+      justifyContent="center"
     >
       <main>{children}</main>
     </Flex>

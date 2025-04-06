@@ -1,8 +1,13 @@
 import { db } from "@/firebase/config";
 import { collection, getDocs } from "firebase/firestore";
 
+export type Beer = {
+  name: string;
+  price: string;
+};
+
 export type GetProductsOutput = {
-  beers: [];
+  beers: Beer[];
   last_updated: number;
 };
 
