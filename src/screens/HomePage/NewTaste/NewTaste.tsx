@@ -1,15 +1,12 @@
-import { AppDispatch, RootState } from "@/app/store";
-import { fetchProducts } from "@/redux/modules/products/actions/fetchProducts";
+import { RootState } from "@/app/store";
 import { Beer } from "@/redux/modules/products/api/getProducts";
-import { Box, Flex, Text } from "@chakra-ui/react";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { Flex, Text } from "@chakra-ui/react";
+import { useSelector } from "react-redux";
 import { Spinner } from "@chakra-ui/react";
 import { renderBeerImage } from "@/utils/renderBeerImage";
 import { useHistory } from "react-router-dom";
 
 export const NewTaste = () => {
-  const dispatch = useDispatch<AppDispatch>();
   const history = useHistory();
 
   const beers =
@@ -17,10 +14,6 @@ export const NewTaste = () => {
   const isFetching = useSelector(
     (state: RootState) => state.products.isFetching
   );
-
-  useEffect(() => {
-    dispatch(fetchProducts());
-  }, []);
 
   const onClickProductDetail = (product: Beer) => {
     history.push("/product-detail", {

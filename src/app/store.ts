@@ -1,9 +1,11 @@
+import { ordersReducer } from "@/redux/modules/orders/ordersReducer";
 import { productReducer } from "@/redux/modules/products/productsReducer";
 import { configureStore } from "@reduxjs/toolkit";
 
 export const store = configureStore({
   reducer: {
     products: productReducer,
+    orders: ordersReducer,
   },
 });
 

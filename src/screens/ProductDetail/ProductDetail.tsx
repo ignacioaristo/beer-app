@@ -2,11 +2,16 @@ import { QuantityCounter } from "@/components/QuantityCounter/QuantityCounter";
 import { renderBeerImage } from "@/utils/renderBeerImage";
 import { Button, Flex, Text } from "@chakra-ui/react";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
-
+import { useHistory, useLocation } from "react-router-dom";
 import { MainLayout } from "../Layouts/MainLayout/MainLayout";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/app/store";
+import { format } from "date-fns";
+import { createOrder } from "@/redux/modules/orders/actions/createOrder";
 
 export const ProductDetail = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const history = useHistory();
   const location = useLocation<{
     beerName: string;
     beerPrice: string;
@@ -17,7 +22,22 @@ export const ProductDetail = () => {
   const beerName = location.state.beerName;
   const beerPrice = location.state.beerPrice;
 
-  const productTotalPrice = Number(beerPrice) * counter;
+  const productTotalAmount = Number(beerPrice) * counter;
+
+  const orderNow = async () => {
+    await dispatch(
+      createOrder({
+        created: format(new Date(), "yyyy-MM-dd HH:mm:ss"),
+        items: {
+          name: beerName,
+          price_per_unit: beerPrice,
+          total: Number(beerPrice) * counter,
+        },
+      })
+    );
+
+    history.push("/your-orders");
+  };
 
   return (
     <MainLayout hasGoBack>
@@ -32,7 +52,7 @@ export const ProductDetail = () => {
             <QuantityCounter setCounter={setCounter} counter={counter} />
           </Flex>
           <Flex mt={4} flexDir="column">
-            <Text color="grey">
+            <Text>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
               finibus fringilla nibh, vitae auctor tortor facilisis non. Integer
               vel sem gravida nulla dapibus consectetur. Sed metus nibh,
@@ -54,9 +74,15 @@ export const ProductDetail = () => {
             <Text fontSize={"lg"} color="grey">
               Total price:
             </Text>
-            <Text fontSize={"3xl"}>IDR {productTotalPrice}</Text>
+            <Text fontSize={"3xl"}>IDR {productTotalAmount}</Text>
           </Flex>
-          <Button fontSize="md" w={"40%"} alignSelf="center" bgColor="red">
+          <Button
+            onClick={orderNow}
+            fontSize="md"
+            w={"40%"}
+            alignSelf="center"
+            bgColor="#EB0029"
+          >
             Order Now
           </Button>
         </Flex>
