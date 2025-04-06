@@ -2,14 +2,19 @@ import { Corona } from "@/assets/svg/Corona";
 import { ClubColombia } from "@/assets/svg/ClubColombia";
 import { Quilmes } from "@/assets/svg/Quilmes";
 
-export const renderBeerImage = (name: string) => {
+type ImageProp = {
+  name: string;
+  size?: { width: string; height: string };
+};
+
+export const renderBeerImage = ({ name, size }: ImageProp) => {
   switch (name) {
     case "Corona":
-      return <Corona />;
+      return <Corona width={size?.width} height={size?.height} />;
     case "Quilmes":
-      return <Quilmes />;
+      return <Quilmes width={size?.width} height={size?.height} />;
     case "Club Colombia":
-      return <ClubColombia />;
+      return <ClubColombia width={size?.width} height={size?.height} />;
     default:
       return null;
   }

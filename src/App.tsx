@@ -5,23 +5,25 @@ import {
   Route,
 } from "react-router-dom";
 import { HomePage } from "./screens/HomePage/HomePage";
-import { MainLayout } from "./screens/Layouts/MainLayout/MainLayout";
+import { ProductDetail } from "./screens/ProductDetail/ProductDetail";
 
 function App() {
   return (
-    <MainLayout>
-      <Router>
-        <Switch>
-          <Route path="/">
-            <HomePage />
-          </Route>
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <HomePage />
+        </Route>
 
-          <Route path="*">
-            <Redirect to="/" />
-          </Route>
-        </Switch>
-      </Router>
-    </MainLayout>
+        <Route exact path="/product-detail">
+          <ProductDetail />
+        </Route>
+
+        <Route path="*">
+          <Redirect to="/" />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
