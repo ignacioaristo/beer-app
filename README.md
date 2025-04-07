@@ -4,7 +4,7 @@ A beer ordering app built with React. Users can explore a beer list, add product
 
 ## 🌐 Live Demo
 
-👉 [Click here to try the app online](https://beer-14h7gb6kc-ignacioaristos-projects.vercel.app/)
+👉 [Click here to try the app online](https://beer-app-five.vercel.app/)
 
 ---
 
