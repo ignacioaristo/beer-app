@@ -33,7 +33,11 @@ export const NewTaste = () => {
   return (
     <Flex flexDir="column">
       {beers.map((beer: Beer) => (
-        <Flex key={beer.name} onClick={() => onClickProductDetail(beer)}>
+        <Flex
+          _hover={{ cursor: "pointer" }}
+          key={beer.name}
+          onClick={() => onClickProductDetail(beer)}
+        >
           {renderBeerImage({ name: beer.name })}
           <Flex flexDir="column" justifyContent="center" ml={8}>
             <Text fontSize="md">{beer.name}</Text>

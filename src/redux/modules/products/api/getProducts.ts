@@ -3,12 +3,13 @@ import { collection, getDocs } from "firebase/firestore";
 
 export type Beer = {
   name: string;
-  price: string;
+  price: number;
+  quantity: number;
 };
 
 export type GetProductsOutput = {
   beers: Beer[];
-  last_updated: number;
+  last_updated: string;
 };
 
 export const getProducts = async (): Promise<GetProductsOutput> => {

@@ -28,7 +28,7 @@ export const ProductDetail = () => {
 
   const productTotalAmount = Number(beerPrice) * counter;
 
-  const orderNow = async () => {
+  const onSubmit = async () => {
     const response = await dispatch(
       createOrder({
         created: format(new Date(), "yyyy-MM-dd HH:mm:ss"),
@@ -47,7 +47,7 @@ export const ProductDetail = () => {
         duration: 3000,
       });
       await dispatch(fetchOrder());
-      return history.push("/your-orders", { orderCreated: true });
+      return history.push("/your-orders");
     }
 
     return toaster.create({
@@ -97,7 +97,7 @@ export const ProductDetail = () => {
             <Text fontSize="3xl">IDR {productTotalAmount}</Text>
           </Flex>
           <Button
-            onClick={orderNow}
+            onClick={onSubmit}
             loading={isFetching}
             fontSize="md"
             w="40%"

@@ -54,6 +54,7 @@ export const MainLayout = ({
               bgColor="#EB0029"
               onClick={goBack}
               disabled={isLoading}
+              data-testid="go-back-button"
             >
               <Icon size="xl" color="white">
                 <IoChevronBackOutline />
