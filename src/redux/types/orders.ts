@@ -21,3 +21,8 @@ export type Orders = {
   totalAmountPaid: number;
   totalItems: number;
 };
+
+export type NewOrder = {
+  newOrder: Orders;
+  id: string;
+};

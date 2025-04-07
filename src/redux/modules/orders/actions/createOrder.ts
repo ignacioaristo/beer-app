@@ -9,13 +9,13 @@ export type CreateOrderInput = {
   created: string;
   items: {
     name: string;
-    price_per_unit: string;
+    price_per_unit: number;
     total: number;
   };
 };
 
 export const createOrder = createAsyncThunk<
-  any,
+  undefined,
   CreateOrderInput,
   {
     rejectValue: CreateOrderRejectedValue;
@@ -41,8 +41,7 @@ export const createOrder = createAsyncThunk<
         ],
       };
 
-      const docRef = await addDoc(collection(db, "orders"), newOrder);
-      return { newOrder, id: docRef.id };
+      await addDoc(collection(db, "orders"), newOrder);
     } else {
       const orderData = state.orders?.openOrders[0];
       const orderId = state.orders?.openOrders[0].id;

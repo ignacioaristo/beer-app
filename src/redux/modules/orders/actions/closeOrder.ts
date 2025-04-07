@@ -14,11 +14,11 @@ export const closeOrder = createAsyncThunk<
   }
 >("orders/CLOSE_ORDER", async ({ totalPayment, totalItems }, thunkAPI) => {
   const state = thunkAPI.getState() as RootState;
-  const isNewOrder = state.orders?.openOrders[0]?.paid ?? true;
+  const isNewOrder = state.orders?.openOrders?.[0]?.paid ?? true;
 
   try {
     if (!isNewOrder) {
-      const orderId = state.orders?.openOrders[0].id;
+      const orderId = state.orders?.openOrders?.[0].id ?? "";
 
       await updateDoc(doc(db, "orders", orderId), {
         paid: true,
