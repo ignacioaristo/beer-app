@@ -12,18 +12,13 @@ export type GetProductsOutput = {
 };
 
 export const getOrder = async (): Promise<any> => {
-  try {
-    const stockRef = collection(db, "orders");
-    const snapshot = await getDocs(stockRef);
+  const stockRef = collection(db, "orders");
+  const snapshot = await getDocs(stockRef);
 
-    const data = snapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
+  const data = snapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
 
-    return data;
-  } catch (error) {
-    console.error("Error", error);
-    throw error;
-  }
+  return data;
 };

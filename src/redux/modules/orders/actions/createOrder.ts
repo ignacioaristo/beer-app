@@ -51,8 +51,6 @@ export const createOrder = createAsyncThunk<
       rounds.push({ created: new Date().toISOString(), items });
 
       await updateDoc(doc(db, "orders", orderId), { rounds });
-
-      console.log("Orden actualizada correctamente");
     }
   } catch {
     return thunkAPI.rejectWithValue("request_failed");

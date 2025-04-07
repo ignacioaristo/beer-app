@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeOrder } from "@/redux/modules/orders/actions/closeOrder";
 import { AppDispatch, RootState } from "@/app/store";
 import { fetchOrder } from "@/redux/modules/orders/actions/fetchOrder";
+import { isFulfilled } from "@reduxjs/toolkit";
+import { toaster, Toaster } from "@/components/ui/toaster";
 
 export const Paytment = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -35,9 +37,18 @@ export const Paytment = () => {
   let totalItems = 0;
 
   const checkoutOrder = async () => {
-    await dispatch(closeOrder({ totalPayment, totalItems }));
-    await dispatch(fetchOrder());
-    history.push("/");
+    const response = await dispatch(closeOrder({ totalPayment, totalItems }));
+    if (isFulfilled(response)) {
+      await dispatch(fetchOrder());
+      return history.push("/", { paymentSuccess: true });
+    }
+
+    return toaster.create({
+      title: `Payment failed, please try again`,
+      type: "error",
+
+      duration: 3000,
+    });
   };
 
   return (
@@ -47,6 +58,7 @@ export const Paytment = () => {
       isLoading={isFetching || isClosingOrder}
       screenTitle={{ title: "Payment", subTitle: "You deserve better meal" }}
     >
+      <Toaster />
       <Flex flexDir="column" justifyContent="space-between" px={4} w={"full"}>
         <Text>Item Ordered</Text>
         {eachOrder.map((order, i) => {

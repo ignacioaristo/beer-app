@@ -36,7 +36,6 @@ export const MainLayout = ({
       w="50%"
       h="100vh"
       px={4}
-      border={"1px solid #EB0029"}
     >
       {hasGoBack || hasScreenTitle ? (
         <Flex

@@ -25,8 +25,6 @@ export const closeOrder = createAsyncThunk<
         totalAmountPaid: totalPayment,
         totalItems,
       });
-
-      console.log("Orden pagada correctamente");
     }
   } catch (e) {
     return thunkAPI.rejectWithValue("request_failed");

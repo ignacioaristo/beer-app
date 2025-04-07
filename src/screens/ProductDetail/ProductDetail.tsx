@@ -9,6 +9,8 @@ import { AppDispatch, RootState } from "@/app/store";
 import { format } from "date-fns";
 import { createOrder } from "@/redux/modules/orders/actions/createOrder";
 import { fetchOrder } from "@/redux/modules/orders/actions/fetchOrder";
+import { isFulfilled } from "@reduxjs/toolkit";
+import { Toaster, toaster } from "@/components/ui/toaster";
 
 export const ProductDetail = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -27,7 +29,7 @@ export const ProductDetail = () => {
   const productTotalAmount = Number(beerPrice) * counter;
 
   const orderNow = async () => {
-    await dispatch(
+    const response = await dispatch(
       createOrder({
         created: format(new Date(), "yyyy-MM-dd HH:mm:ss"),
         items: {
@@ -38,12 +40,22 @@ export const ProductDetail = () => {
       })
     );
 
-    await dispatch(fetchOrder());
-    history.push("/your-orders");
+    if (isFulfilled(response)) {
+      await dispatch(fetchOrder());
+      return history.push("/your-orders", { orderCreated: true });
+    }
+
+    return toaster.create({
+      title: `Failed to add item to your order, please try again`,
+      type: "error",
+
+      duration: 3000,
+    });
   };
 
   return (
     <MainLayout hasGoBack isLoading={isFetching}>
+      <Toaster />
       <Flex flexDir="column" alignItems="center">
         {renderBeerImage({
           name: beerName,

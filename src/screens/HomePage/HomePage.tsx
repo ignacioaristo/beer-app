@@ -1,10 +1,32 @@
 import { Flex, Tabs } from "@chakra-ui/react";
 import { NewTaste } from "./NewTaste/NewTaste";
 import { MainLayout } from "../Layouts/MainLayout/MainLayout";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { toaster, Toaster } from "@/components/ui/toaster";
+
+type LocationState = {
+  paymentSuccess?: boolean;
+};
 
 export const HomePage = () => {
+  const location = useLocation<LocationState>();
+
+  const { paymentSuccess } = location.state || false;
+
+  useEffect(() => {
+    if (paymentSuccess) {
+      toaster.create({
+        title: `Order payment was successful`,
+        type: "success",
+        duration: 3000,
+      });
+    }
+  }, [paymentSuccess]);
+
   return (
     <MainLayout>
+      <Toaster />
       <Flex justifyContent="center">
         <Tabs.Root defaultValue="new-taste">
           <Tabs.List>

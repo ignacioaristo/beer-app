@@ -12,18 +12,13 @@ export type GetProductsOutput = {
 };
 
 export const getProducts = async (): Promise<GetProductsOutput> => {
-  try {
-    const stockRef = collection(db, "stock");
-    const snapshot = await getDocs(stockRef);
+  const stockRef = collection(db, "stock");
+  const snapshot = await getDocs(stockRef);
 
-    const data = snapshot.docs.map((doc) => doc.data());
+  const data = snapshot.docs.map((doc) => doc.data());
 
-    return {
-      beers: data[0]?.beers || [],
-      last_updated: data[0]?.last_updated || 0,
-    };
-  } catch (error) {
-    console.error("Error", error);
-    throw error;
-  }
+  return {
+    beers: data[0]?.beers || [],
+    last_updated: data[0]?.last_updated || 0,
+  };
 };
