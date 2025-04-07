@@ -1,5 +1,5 @@
 import { MainLayout } from "../Layouts/MainLayout/MainLayout";
-import { Button, Flex, Tabs, Text } from "@chakra-ui/react";
+import { Flex, Tabs, Text } from "@chakra-ui/react";
 import { InProgress } from "./InProgress/InProgress";
 import { PastOrders } from "./PastOrders/PastOrders";
 

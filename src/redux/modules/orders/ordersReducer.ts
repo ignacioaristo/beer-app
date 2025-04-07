@@ -2,6 +2,7 @@ import { combineReducers } from "redux";
 import { createReducer } from "@reduxjs/toolkit";
 import { createOrder } from "./actions/createOrder";
 import { fetchOrder } from "./actions/fetchOrder";
+import { closeOrder } from "./actions/closeOrder";
 
 export const ordersReducer = combineReducers({
   data: createReducer({} as any, (builder) =>
@@ -23,7 +24,12 @@ export const ordersReducer = combineReducers({
       return action.payload.filter((order: any) => order.paid === true);
     })
   ),
-
+  isClosingOrder: createReducer(false, (builder) =>
+    builder
+      .addCase(closeOrder.pending, () => true)
+      .addCase(closeOrder.fulfilled, () => false)
+      .addCase(closeOrder.rejected, () => false)
+  ),
   openOrders: createReducer({} as any, (builder) =>
     builder.addCase(fetchOrder.fulfilled, (_, action) => {
       return action.payload.filter((order: any) => order.paid === false);

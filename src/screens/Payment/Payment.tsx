@@ -1,13 +1,15 @@
 import { Button, Flex, Text } from "@chakra-ui/react";
 import { MainLayout } from "../Layouts/MainLayout/MainLayout";
-import { useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { renderBeerImage } from "@/utils/renderBeerImage";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { closeOrder } from "@/redux/modules/orders/actions/closeOrder";
-import { AppDispatch } from "@/app/store";
+import { AppDispatch, RootState } from "@/app/store";
+import { fetchOrder } from "@/redux/modules/orders/actions/fetchOrder";
 
 export const Paytment = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const history = useHistory();
   const location = useLocation<{
     rounds: [
       {
@@ -20,6 +22,9 @@ export const Paytment = () => {
     ];
   }>();
 
+  const { isClosingOrder } = useSelector((state: RootState) => state.orders);
+  const { isFetching } = useSelector((state: RootState) => state.orders);
+
   const eachOrder = location?.state.rounds;
 
   const totalSum = eachOrder?.reduce((acc, current) => {
@@ -29,14 +34,17 @@ export const Paytment = () => {
   const totalPayment = totalSum + taxesAmount;
   let totalItems = 0;
 
-  const checkoutOrder = () => {
-    dispatch(closeOrder({ totalPayment, totalItems }));
+  const checkoutOrder = async () => {
+    await dispatch(closeOrder({ totalPayment, totalItems }));
+    await dispatch(fetchOrder());
+    history.push("/");
   };
 
   return (
     <MainLayout
       hasGoBack
       hasScreenTitle={true}
+      isLoading={isFetching || isClosingOrder}
       screenTitle={{ title: "Payment", subTitle: "You deserve better meal" }}
     >
       <Flex flexDir="column" justifyContent="space-between" px={4} w={"full"}>
@@ -52,7 +60,7 @@ export const Paytment = () => {
                   <Text color="#8D92A3">IDR {order.items?.price_per_unit}</Text>
                 </Flex>
               </Flex>
-              <Text color="#8D92A3">
+              <Text color="#8D92A3" alignSelf="center">
                 {order.items?.total / order.items?.price_per_unit} items
               </Text>
             </Flex>
@@ -81,6 +89,7 @@ export const Paytment = () => {
 
         <Button
           onClick={checkoutOrder}
+          loading={isFetching || isClosingOrder}
           bottom={0}
           fontSize="md"
           w={"40%"}

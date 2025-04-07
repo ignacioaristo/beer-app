@@ -22,20 +22,10 @@ export const createOrder = createAsyncThunk<
   }
 >("orders/CREATE_ORDER", async ({ items, created }, thunkAPI) => {
   const state = thunkAPI.getState() as RootState;
-  const isOrderOpen = state.orders?.data[0]?.paid ?? true;
+  const isNewOrder = state.orders?.openOrders[0]?.paid ?? true;
 
   try {
-    if (!isOrderOpen) {
-      const orderData = state.orders.data[0];
-      const orderId = state.orders.data[0].id;
-      const rounds = [...orderData.rounds];
-
-      rounds.push({ created: new Date().toISOString(), items });
-
-      await updateDoc(doc(db, "orders", orderId), { rounds });
-
-      console.log("Orden actualizada correctamente");
-    } else {
+    if (isNewOrder) {
       const newOrder = {
         created: format(new Date(), "yyyy-MM-dd HH:mm:ss"),
         paid: false,
@@ -53,8 +43,18 @@ export const createOrder = createAsyncThunk<
 
       const docRef = await addDoc(collection(db, "orders"), newOrder);
       return { newOrder, id: docRef.id };
+    } else {
+      const orderData = state.orders?.openOrders[0];
+      const orderId = state.orders?.openOrders[0].id;
+      const rounds = [...orderData.rounds];
+
+      rounds.push({ created: new Date().toISOString(), items });
+
+      await updateDoc(doc(db, "orders", orderId), { rounds });
+
+      console.log("Orden actualizada correctamente");
     }
-  } catch (e) {
+  } catch {
     return thunkAPI.rejectWithValue("request_failed");
   }
 });

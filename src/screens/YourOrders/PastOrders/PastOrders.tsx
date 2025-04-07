@@ -10,7 +10,7 @@ export const PastOrders = () => {
     <Flex flexDir="column">
       {rounds.map((round: any, i) => {
         return (
-          <Flex w="full" alignItems="center">
+          <Flex key={i} w="full" alignItems="center">
             <PaidOrder />
             <Flex flexDir="column" ml={4}>
               <Text>Order Number {i + 1}</Text>
