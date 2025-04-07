@@ -41,6 +41,11 @@ export const ProductDetail = () => {
     );
 
     if (isFulfilled(response)) {
+      toaster.create({
+        title: `Item added successfully to your order`,
+        type: "success",
+        duration: 3000,
+      });
       await dispatch(fetchOrder());
       return history.push("/your-orders", { orderCreated: true });
     }
@@ -84,18 +89,18 @@ export const ProductDetail = () => {
             <Text color="grey">Lorem ipsum dolor sit.</Text>
           </Flex>
         </Flex>
-        <Flex justifyContent={"space-between"} w="full" mt={10}>
+        <Flex justifyContent="space-between" w="full" mt={10}>
           <Flex flexDir="column">
-            <Text fontSize={"lg"} color="grey">
+            <Text fontSize="lg" color="grey">
               Total price:
             </Text>
-            <Text fontSize={"3xl"}>IDR {productTotalAmount}</Text>
+            <Text fontSize="3xl">IDR {productTotalAmount}</Text>
           </Flex>
           <Button
             onClick={orderNow}
             loading={isFetching}
             fontSize="md"
-            w={"40%"}
+            w="40%"
             alignSelf="center"
             bgColor="#EB0029"
           >

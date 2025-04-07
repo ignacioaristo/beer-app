@@ -7,6 +7,7 @@ type ImageProp = {
   size?: { width: string; height: string };
 };
 
+//TODO: The image should come from the DB as a URL format
 export const renderBeerImage = ({ name, size }: ImageProp) => {
   switch (name) {
     case "Corona":

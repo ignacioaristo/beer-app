@@ -1,11 +1,12 @@
 import { combineReducers } from "redux";
 import { createReducer } from "@reduxjs/toolkit";
+import { Orders } from "@/redux/types/orders";
 import { createOrder } from "./actions/createOrder";
 import { fetchOrder } from "./actions/fetchOrder";
 import { closeOrder } from "./actions/closeOrder";
 
 export const ordersReducer = combineReducers({
-  data: createReducer({} as any, (builder) =>
+  data: createReducer(null as Orders[] | null, (builder) =>
     builder
       .addCase(createOrder.fulfilled, (_, action) => action.payload)
       .addCase(fetchOrder.fulfilled, (_, action) => action.payload)
@@ -19,9 +20,9 @@ export const ordersReducer = combineReducers({
       .addCase(fetchOrder.fulfilled, () => false)
       .addCase(fetchOrder.rejected, () => false)
   ),
-  closedOrders: createReducer({} as any, (builder) =>
+  closedOrders: createReducer(null as Orders[] | null, (builder) =>
     builder.addCase(fetchOrder.fulfilled, (_, action) => {
-      return action.payload.filter((order: any) => order.paid === true);
+      return action.payload.filter((order: Orders) => order.paid === true);
     })
   ),
   isClosingOrder: createReducer(false, (builder) =>
@@ -30,9 +31,9 @@ export const ordersReducer = combineReducers({
       .addCase(closeOrder.fulfilled, () => false)
       .addCase(closeOrder.rejected, () => false)
   ),
-  openOrders: createReducer({} as any, (builder) =>
+  openOrders: createReducer(null as Orders[] | null, (builder) =>
     builder.addCase(fetchOrder.fulfilled, (_, action) => {
-      return action.payload.filter((order: any) => order.paid === false);
+      return action.payload.filter((order: Orders) => order.paid === false);
     })
   ),
 });

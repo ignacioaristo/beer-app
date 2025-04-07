@@ -11,7 +11,7 @@ export type GetProductsOutput = {
   last_updated: number;
 };
 
-export const getOrder = async (): Promise<any> => {
+export const getOrder = async () => {
   const stockRef = collection(db, "orders");
   const snapshot = await getDocs(stockRef);
 
@@ -19,6 +19,5 @@ export const getOrder = async (): Promise<any> => {
     id: doc.id,
     ...doc.data(),
   }));
-
   return data;
 };

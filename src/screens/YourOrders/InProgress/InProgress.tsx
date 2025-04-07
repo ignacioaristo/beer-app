@@ -1,4 +1,5 @@
 import { RootState } from "@/app/store";
+import { Rounds } from "@/redux/types/orders";
 import { renderBeerImage } from "@/utils/renderBeerImage";
 import { Button, Flex, Spinner, Text } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
@@ -9,7 +10,8 @@ export const InProgress = () => {
   const { isFetching } = useSelector((state: RootState) => state.orders);
 
   const rounds =
-    useSelector((state: RootState) => state.orders.openOrders[0]?.rounds) ?? [];
+    useSelector((state: RootState) => state?.orders?.openOrders?.[0]?.rounds) ??
+    [];
 
   const toCheckout = () => {
     history.push("/payment", { rounds });
@@ -25,7 +27,7 @@ export const InProgress = () => {
 
   return rounds.length !== 0 ? (
     <Flex flexDir="column" w="full">
-      {rounds?.map((round: any, i) => {
+      {rounds?.map((round: Rounds, i) => {
         const itemQuantity = round.items?.total / round.items?.price_per_unit;
         return (
           <Flex w="full" alignItems="center" key={i}>

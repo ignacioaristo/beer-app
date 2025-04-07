@@ -39,6 +39,11 @@ export const Paytment = () => {
   const checkoutOrder = async () => {
     const response = await dispatch(closeOrder({ totalPayment, totalItems }));
     if (isFulfilled(response)) {
+      toaster.create({
+        title: `Order payment was successful`,
+        type: "success",
+        duration: 3000,
+      });
       await dispatch(fetchOrder());
       return history.push("/", { paymentSuccess: true });
     }

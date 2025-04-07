@@ -21,6 +21,7 @@ const App = () => {
     dispatch(fetchProducts());
     dispatch(fetchOrder());
   }, [dispatch]);
+
   return (
     <Router>
       <Switch>
