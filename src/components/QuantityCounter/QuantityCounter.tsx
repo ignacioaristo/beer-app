@@ -1,4 +1,6 @@
+import { RootState } from "@/app/store";
 import { Button, Flex, Text } from "@chakra-ui/react";
+import { useSelector } from "react-redux";
 
 type Props = {
   setCounter: (counter: number) => void;
@@ -6,6 +8,8 @@ type Props = {
 };
 
 export const QuantityCounter: React.FC<Props> = ({ counter, setCounter }) => {
+  const { isFetching } = useSelector((state: RootState) => state.orders);
+
   const handleIncrement = () => {
     setCounter(counter + 1);
   };
@@ -23,6 +27,7 @@ export const QuantityCounter: React.FC<Props> = ({ counter, setCounter }) => {
         fontSize="2xl"
         border="2px solid black"
         borderRadius={12}
+        disabled={isFetching}
       >
         -
       </Button>
@@ -36,6 +41,7 @@ export const QuantityCounter: React.FC<Props> = ({ counter, setCounter }) => {
         borderRadius={12}
         onClick={handleIncrement}
         fontSize="2xl"
+        disabled={isFetching}
       >
         +
       </Button>

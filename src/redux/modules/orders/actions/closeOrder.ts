@@ -8,11 +8,11 @@ export type CloseOrderInput = {};
 
 export const closeOrder = createAsyncThunk<
   any,
-  number,
+  { totalPayment: number; totalItems: number },
   {
     rejectValue: CloseOrderRejectedValue;
   }
->("orders/CLOSE_ORDER", async (totalPayment, thunkAPI) => {
+>("orders/CLOSE_ORDER", async ({ totalPayment, totalItems }, thunkAPI) => {
   const state = thunkAPI.getState() as RootState;
   const isOrderOpen = state.orders?.data[0]?.paid ?? true;
 
@@ -23,12 +23,12 @@ export const closeOrder = createAsyncThunk<
       await updateDoc(doc(db, "orders", orderId), {
         paid: true,
         totalAmountPaid: totalPayment,
+        totalItems,
       });
 
       console.log("Orden pagada correctamente");
     }
   } catch (e) {
-    console.log("ERROR--->", e);
     return thunkAPI.rejectWithValue("request_failed");
   }
 });

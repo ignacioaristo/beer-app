@@ -26,20 +26,16 @@ export const createOrder = createAsyncThunk<
 
   try {
     if (!isOrderOpen) {
-      console.log("LAACTUALIZA");
       const orderData = state.orders.data[0];
       const orderId = state.orders.data[0].id;
       const rounds = [...orderData.rounds];
 
-      console.log("orderID-->", orderId);
       rounds.push({ created: new Date().toISOString(), items });
 
       await updateDoc(doc(db, "orders", orderId), { rounds });
 
       console.log("Orden actualizada correctamente");
     } else {
-      console.log("La tiene que crear");
-
       const newOrder = {
         created: format(new Date(), "yyyy-MM-dd HH:mm:ss"),
         paid: false,
@@ -59,7 +55,6 @@ export const createOrder = createAsyncThunk<
       return { newOrder, id: docRef.id };
     }
   } catch (e) {
-    console.log("ERROR--->", e);
     return thunkAPI.rejectWithValue("request_failed");
   }
 });

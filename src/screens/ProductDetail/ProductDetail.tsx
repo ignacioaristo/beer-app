@@ -4,13 +4,15 @@ import { Button, Flex, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { MainLayout } from "../Layouts/MainLayout/MainLayout";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/app/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/app/store";
 import { format } from "date-fns";
 import { createOrder } from "@/redux/modules/orders/actions/createOrder";
+import { fetchOrder } from "@/redux/modules/orders/actions/fetchOrder";
 
 export const ProductDetail = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const { isFetching } = useSelector((state: RootState) => state.orders);
   const history = useHistory();
   const location = useLocation<{
     beerName: string;
@@ -36,11 +38,12 @@ export const ProductDetail = () => {
       })
     );
 
+    await dispatch(fetchOrder());
     history.push("/your-orders");
   };
 
   return (
-    <MainLayout hasGoBack>
+    <MainLayout hasGoBack isLoading={isFetching}>
       <Flex flexDir="column" alignItems="center">
         {renderBeerImage({
           name: beerName,
@@ -78,6 +81,7 @@ export const ProductDetail = () => {
           </Flex>
           <Button
             onClick={orderNow}
+            loading={isFetching}
             fontSize="md"
             w={"40%"}
             alignSelf="center"

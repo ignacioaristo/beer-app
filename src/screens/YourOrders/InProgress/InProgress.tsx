@@ -14,8 +14,8 @@ export const InProgress = () => {
     history.push("/payment", { rounds });
   };
 
-  return rounds ? (
-    <Flex flexDir="column">
+  return rounds.length !== 0 ? (
+    <Flex flexDir="column" w="full">
       {rounds?.map((round: any) => {
         const itemQuantity = round.items?.total / round.items?.price_per_unit;
         return (

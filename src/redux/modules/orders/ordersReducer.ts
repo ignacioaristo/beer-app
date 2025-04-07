@@ -14,6 +14,9 @@ export const ordersReducer = combineReducers({
       .addCase(createOrder.pending, () => true)
       .addCase(createOrder.fulfilled, () => false)
       .addCase(createOrder.rejected, () => false)
+      .addCase(fetchOrder.pending, () => true)
+      .addCase(fetchOrder.fulfilled, () => false)
+      .addCase(fetchOrder.rejected, () => false)
   ),
   closedOrders: createReducer({} as any, (builder) =>
     builder.addCase(fetchOrder.fulfilled, (_, action) => {

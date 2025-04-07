@@ -3,6 +3,7 @@ import { Flex, Text, Icon } from "@chakra-ui/react";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { useHistory } from "react-router-dom";
 import { Button } from "@chakra-ui/react";
+import { NavBottomTabBar } from "../NavBottomTabBar/NavBottomTabBar";
 
 type Props = {
   children: React.ReactNode;
@@ -12,6 +13,7 @@ type Props = {
     title?: string;
     subTitle?: string;
   };
+  isLoading?: boolean;
 };
 
 export const MainLayout = ({
@@ -19,6 +21,7 @@ export const MainLayout = ({
   hasGoBack,
   hasScreenTitle,
   screenTitle,
+  isLoading,
 }: Props) => {
   const history = useHistory();
 
@@ -28,13 +31,12 @@ export const MainLayout = ({
   return (
     <Flex
       flexDir="column"
-      alignSelf="center"
       margin="auto"
       backgroundColor="white"
       w="50%"
       h="100vh"
-      border={"1px solid black"}
       px={4}
+      border={"1px solid #EB0029"}
     >
       {hasGoBack || hasScreenTitle ? (
         <Flex
@@ -52,6 +54,7 @@ export const MainLayout = ({
               alignSelf="center"
               bgColor="#EB0029"
               onClick={goBack}
+              disabled={isLoading}
             >
               <Icon size="xl" color="white">
                 <IoChevronBackOutline />
@@ -72,7 +75,16 @@ export const MainLayout = ({
         </Flex>
       ) : null}
 
-      <main>{children}</main>
+      <Flex
+        height="100vh"
+        justifyContent={"center"}
+        w="100%"
+        overflowY="scroll"
+      >
+        {children}
+      </Flex>
+
+      <NavBottomTabBar />
     </Flex>
   );
 };

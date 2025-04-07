@@ -27,9 +27,10 @@ export const Paytment = () => {
   }, 0);
   const taxesAmount = totalSum * 0.1;
   const totalPayment = totalSum + taxesAmount;
+  let totalItems = 0;
 
   const checkoutOrder = () => {
-    dispatch(closeOrder(totalPayment));
+    dispatch(closeOrder({ totalPayment, totalItems }));
   };
 
   return (
@@ -38,17 +39,12 @@ export const Paytment = () => {
       hasScreenTitle={true}
       screenTitle={{ title: "Payment", subTitle: "You deserve better meal" }}
     >
-      <Flex
-        flexDir="column"
-        justifyContent="space-between"
-        px={4}
-        w="full"
-        h="100%"
-      >
+      <Flex flexDir="column" justifyContent="space-between" px={4} w={"full"}>
         <Text>Item Ordered</Text>
         {eachOrder.map((order, i) => {
+          totalItems += order.items?.total / order.items?.price_per_unit;
           return (
-            <Flex key={i} justifyContent="space-between" alignItems="center">
+            <Flex key={i} justifyContent="space-between" w="full">
               <Flex alignItems="center">
                 {renderBeerImage({ name: order.items?.name })}
                 <Flex flexDir="column" ml={10}>
