@@ -4,6 +4,7 @@ import { IoChevronBackOutline } from "react-icons/io5";
 import { useHistory } from "react-router-dom";
 import { Button } from "@chakra-ui/react";
 import { NavBottomTabBar } from "../NavBottomTabBar/NavBottomTabBar";
+import { screenToNotShowBottomBar } from "./constants";
 
 type Props = {
   children: React.ReactNode;
@@ -32,15 +33,12 @@ export const MainLayout = ({
     <Flex
       flexDir="column"
       margin="auto"
-      backgroundColor="white"
       w={{ sm: "100%", md: "60%" }}
-      h="100vh"
       px={4}
+      minH="100dvh"
     >
       {hasGoBack || hasScreenTitle ? (
         <Flex
-          mt={10}
-          ml={6}
           position="relative"
           alignSelf="flex-start"
           w="full"
@@ -75,16 +73,13 @@ export const MainLayout = ({
         </Flex>
       ) : null}
 
-      <Flex
-        height="100vh"
-        justifyContent={"center"}
-        w="100%"
-        overflowY="scroll"
-      >
+      <Flex flex={1} justifyContent="center" w="100%" overflowY="auto">
         {children}
       </Flex>
 
-      <NavBottomTabBar />
+      {!screenToNotShowBottomBar.includes(window.location.pathname) ? (
+        <NavBottomTabBar />
+      ) : null}
     </Flex>
   );
 };
