@@ -34,7 +34,7 @@ export const ProductDetail = () => {
         created: format(new Date(), "yyyy-MM-dd HH:mm:ss"),
         items: {
           name: beerName,
-          price_per_unit: beerPrice,
+          price_per_unit: Number(beerPrice),
           total: Number(beerPrice) * counter,
         },
       })
