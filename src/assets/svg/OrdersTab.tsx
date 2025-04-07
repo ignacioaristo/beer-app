@@ -7,7 +7,7 @@ type Props = {
   height?: number;
 };
 export const OrdersTab: React.FC<Props> = ({ selected = true, ...props }) => {
-  const selectedColor = selected ? "red" : "#E2E2E2";
+  const selectedColor = selected ? "#EB0029" : "#E2E2E2";
   const { width = 10, height = 10, color = selectedColor, ...rest } = props;
 
   return (

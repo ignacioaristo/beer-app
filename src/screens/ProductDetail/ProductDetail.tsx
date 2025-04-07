@@ -86,12 +86,12 @@ export const ProductDetail = () => {
 
             <Text my={6}>Ingredients:</Text>
 
-            <Text color="grey">Lorem ipsum dolor sit.</Text>
+            <Text color="#8D92A3">Lorem ipsum dolor sit.</Text>
           </Flex>
         </Flex>
         <Flex justifyContent="space-between" w="full" mt={10}>
           <Flex flexDir="column">
-            <Text fontSize="lg" color="grey">
+            <Text fontSize="lg" color="#8D92A3">
               Total price:
             </Text>
             <Text fontSize="3xl">IDR {productTotalAmount}</Text>

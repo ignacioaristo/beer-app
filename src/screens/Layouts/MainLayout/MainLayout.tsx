@@ -35,16 +35,12 @@ export const MainLayout = ({
       margin="auto"
       w={{ sm: "100%", md: "60%" }}
       px={4}
+      maxH="100dvh"
       minH="100dvh"
+      overflow="auto"
     >
       {hasGoBack || hasScreenTitle ? (
-        <Flex
-          position="relative"
-          alignSelf="flex-start"
-          w="full"
-          h="80px"
-          mb={hasScreenTitle ? 20 : 4}
-        >
+        <Flex w="full" mb={4} mt={4} minH={"60px"}>
           {hasGoBack && (
             <Button
               w="20px"
@@ -73,7 +69,7 @@ export const MainLayout = ({
         </Flex>
       ) : null}
 
-      <Flex flex={1} justifyContent="center" w="100%" overflowY="auto">
+      <Flex flex={1} justifyContent="center" w="100%" overflowY="scroll">
         {children}
       </Flex>
 

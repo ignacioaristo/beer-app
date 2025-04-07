@@ -41,7 +41,7 @@ export const NewTaste = () => {
           {renderBeerImage({ name: beer.name })}
           <Flex flexDir="column" justifyContent="center" ml={8}>
             <Text fontSize="md">{beer.name}</Text>
-            <Text fontSize="xs" color="grey">
+            <Text fontSize="xs" color="#8D92A3">
               IDR {beer.price}
             </Text>
           </Flex>

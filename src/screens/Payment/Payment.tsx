@@ -107,7 +107,6 @@ export const Paytment = () => {
         <Button
           onClick={checkoutOrder}
           loading={isFetching || isClosingOrder}
-          bottom={0}
           fontSize="md"
           w={"40%"}
           alignSelf="center"
