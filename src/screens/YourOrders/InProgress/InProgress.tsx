@@ -1,7 +1,8 @@
 import { RootState } from "@/app/store";
+import { EmptyOrdersInProgress } from "@/assets/svg/EmptyOrdersInProgress";
 import { Rounds } from "@/redux/types/orders";
 import { renderBeerImage } from "@/utils/renderBeerImage";
-import { Button, Flex, Spinner, Text } from "@chakra-ui/react";
+import { Button, Flex, Span, Spinner, Text } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
@@ -15,6 +16,10 @@ export const InProgress = () => {
 
   const toCheckout = () => {
     history.push("/payment", { rounds });
+  };
+
+  const newOrder = () => {
+    history.push("/");
   };
 
   if (isFetching) {
@@ -53,5 +58,17 @@ export const InProgress = () => {
         Pay
       </Button>
     </Flex>
-  ) : null;
+  ) : (
+    <Flex flexDir="column" h="50vh" w="full" mt={10} maxW="200px">
+      <Flex justifyContent="center" alignItems="center">
+        <EmptyOrdersInProgress width={200} height={200} />
+      </Flex>
+      <Text textAlign="center" color="#8D92A3" mt={4}>
+        No orders in progress yet, start one{" "}
+        <Span color="blue" textDecoration="underline" onClick={newOrder}>
+          from here
+        </Span>
+      </Text>
+    </Flex>
+  );
 };
