@@ -33,7 +33,7 @@ export const MainLayout = ({
       flexDir="column"
       margin="auto"
       backgroundColor="white"
-      w="50%"
+      w={{ sm: "100%", md: "60%" }}
       h="100vh"
       px={4}
     >
