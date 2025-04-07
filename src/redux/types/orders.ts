@@ -13,7 +13,7 @@ export type Orders = {
   created: string;
   discounts: number;
   id: string;
-  items: [];
+  items: null;
   paid: boolean;
   rounds: Rounds[];
   subtotal: number;
