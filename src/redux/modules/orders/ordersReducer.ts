@@ -20,7 +20,7 @@ export const ordersReducer = combineReducers({
       .addCase(fetchOrder.fulfilled, () => false)
       .addCase(fetchOrder.rejected, () => false)
   ),
-  closedOrders: createReducer({} as Orders[], (builder) =>
+  closedOrders: createReducer([] as Orders[], (builder) =>
     builder.addCase(fetchOrder.fulfilled, (_, action) => {
       return action.payload.filter((order: Orders) => order.paid === true);
     })

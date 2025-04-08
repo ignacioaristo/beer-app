@@ -1,11 +1,12 @@
 import { RootState } from "@/app/store";
 import { PaidOrder } from "@/assets/svg/PaidOrder";
 import { Orders } from "@/redux/types/orders";
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, Spinner, Text } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 
 export const PastOrders = () => {
   const rounds = useSelector((state: RootState) => state.orders.closedOrders);
+  const isFetching = useSelector((state: RootState) => state.orders.isFetching);
 
   const sortOrdersByDateDesc = (orders: Orders[]): Orders[] => {
     return [...orders].sort((a, b) => {
@@ -15,7 +16,15 @@ export const PastOrders = () => {
     });
   };
 
-  const sortedOrders = sortOrdersByDateDesc(rounds);
+  const sortedOrders = rounds && sortOrdersByDateDesc(rounds);
+
+  if (isFetching) {
+    return (
+      <Flex justifyContent="center">
+        <Spinner size="md" alignSelf="center" />
+      </Flex>
+    );
+  }
 
   return rounds && rounds.length >= 1 ? (
     <Flex flexDir="column">
