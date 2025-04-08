@@ -26,6 +26,7 @@ const HorizontalCarousel = () => {
       whiteSpace="nowrap"
       maxH="100vw"
       scrollbar={"hidden"}
+      flex={1}
     >
       {beers.map((beer, i) => (
         <Flex

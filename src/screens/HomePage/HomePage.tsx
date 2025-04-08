@@ -11,7 +11,13 @@ export const HomePage = () => {
     >
       <Flex mt={4} flexDir="column" overflow="hidden">
         <HorizontalCarousel />
-        <Tabs.Root defaultValue="new-taste" alignSelf="center">
+        <Tabs.Root
+          defaultValue="new-taste"
+          alignSelf="center"
+          flex={3}
+          overflowY="scroll"
+          scrollbar="hidden"
+        >
           <Tabs.List>
             <Tabs.Trigger value="new-taste">
               <Text>New Taste</Text>
