@@ -1,7 +1,7 @@
 import { Flex, Tabs, Text } from "@chakra-ui/react";
 import { NewTaste } from "./NewTaste/NewTaste";
 import { MainLayout } from "../Layouts/MainLayout/MainLayout";
-import HorizontalCarousel from "../../components/HorizontalCarousel.tsx/HorizontalCarousel";
+import HorizontalCarousel from "../../components/HorizontalCarousel/HorizontalCarousel";
 
 export const HomePage = () => {
   return (

@@ -15,7 +15,14 @@ export const NavBottomTabBar = () => {
     history.push(tab);
   };
   return (
-    <Flex position="static" justifyContent="space-around" py={4}>
+    <Flex
+      position="relative"
+      bottom={0}
+      w="full"
+      justifyContent="center"
+      bg="white"
+      py={4}
+    >
       <Button
         onClick={() => redirectTo("/")}
         variant="ghost"

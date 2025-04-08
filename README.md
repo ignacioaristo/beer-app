@@ -22,6 +22,8 @@ A beer ordering app built with React. Users can explore a beer list, add product
 
 ## 🚀 Running the App Locally
 
+Node.js **v20.12.0** → specified in `.nvmrc`
+
 ### 1. Clone the repository
 
 ```bash

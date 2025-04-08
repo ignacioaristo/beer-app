@@ -16,6 +16,7 @@ const HorizontalCarousel = () => {
       beerPrice: product.price,
     });
   };
+
   return (
     <Flex
       overflowX="auto"

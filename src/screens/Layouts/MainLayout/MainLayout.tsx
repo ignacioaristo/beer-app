@@ -29,6 +29,7 @@ export const MainLayout = ({
   const goBack = () => {
     history.goBack();
   };
+
   return (
     <Flex
       flexDir="column"
@@ -69,7 +70,7 @@ export const MainLayout = ({
         </Flex>
       ) : null}
 
-      <Flex flex={1} justifyContent="center" w="100%">
+      <Flex flex={1} justifyContent="center" w="100%" overflowY="scroll">
         {children}
       </Flex>
 

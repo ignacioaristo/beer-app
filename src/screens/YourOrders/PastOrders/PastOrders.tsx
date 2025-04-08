@@ -7,9 +7,19 @@ import { useSelector } from "react-redux";
 export const PastOrders = () => {
   const rounds = useSelector((state: RootState) => state.orders.closedOrders);
 
+  const sortOrdersByDateDesc = (orders: Orders[]): Orders[] => {
+    return [...orders].sort((a, b) => {
+      const dateA = new Date(a.created).getTime();
+      const dateB = new Date(b.created).getTime();
+      return dateB - dateA;
+    });
+  };
+
+  const sortedOrders = sortOrdersByDateDesc(rounds);
+
   return rounds && rounds.length >= 1 ? (
     <Flex flexDir="column">
-      {rounds.map((round: Orders, i) => {
+      {sortedOrders.map((round: Orders, i) => {
         return (
           <Flex key={i} w="full" alignItems="center">
             <PaidOrder />
@@ -18,6 +28,7 @@ export const PastOrders = () => {
               <Text color="#8D92A3">
                 {round?.totalItems} items • IDR {round?.totalAmountPaid}
               </Text>
+              <Text color="#8D92A3">{round.created}</Text>
             </Flex>
           </Flex>
         );
