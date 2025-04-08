@@ -33,7 +33,7 @@ export const MainLayout = ({
     <Flex
       flexDir="column"
       margin="auto"
-      w={{ sm: "100%", md: "60%" }}
+      w={{ sm: "100%", md: "50%" }}
       px={4}
       maxH="100dvh"
       minH="100dvh"
@@ -69,7 +69,7 @@ export const MainLayout = ({
         </Flex>
       ) : null}
 
-      <Flex flex={1} justifyContent="center" w="100%" overflowY="scroll">
+      <Flex flex={1} justifyContent="center" w="100%">
         {children}
       </Flex>
 

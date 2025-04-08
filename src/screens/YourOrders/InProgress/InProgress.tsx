@@ -65,7 +65,12 @@ export const InProgress = () => {
       </Flex>
       <Text textAlign="center" color="#8D92A3" mt={4}>
         No orders in progress yet, start one{" "}
-        <Span color="blue" textDecoration="underline" onClick={newOrder}>
+        <Span
+          cursor="pointer"
+          color="blue"
+          textDecoration="underline"
+          onClick={newOrder}
+        >
           from here
         </Span>
       </Text>

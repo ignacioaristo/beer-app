@@ -1,12 +1,17 @@
 import { Flex, Tabs, Text } from "@chakra-ui/react";
 import { NewTaste } from "./NewTaste/NewTaste";
 import { MainLayout } from "../Layouts/MainLayout/MainLayout";
+import HorizontalCarousel from "../../components/HorizontalCarousel.tsx/HorizontalCarousel";
 
 export const HomePage = () => {
   return (
-    <MainLayout>
-      <Flex justifyContent="center">
-        <Tabs.Root defaultValue="new-taste">
+    <MainLayout
+      hasScreenTitle
+      screenTitle={{ title: "BeerMarket", subTitle: "Let’s get some beers" }}
+    >
+      <Flex mt={4} flexDir="column" overflow="hidden">
+        <HorizontalCarousel />
+        <Tabs.Root defaultValue="new-taste" alignSelf="center">
           <Tabs.List>
             <Tabs.Trigger value="new-taste">
               <Text>New Taste</Text>
